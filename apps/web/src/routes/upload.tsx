@@ -7,12 +7,12 @@ export const Route = createFileRoute("/upload")({
   component: UploadComponent,
 });
 
-function UploadComponent() {
+export function UploadComponent() {
   const { token } = useAuth();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<"idle" | "uploading" | "success" | "error">(
-    "idle"
-  );
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "uploading" | "success" | "error"
+  >("idle");
   const [uploadResult, setUploadResult] = useState<string>("");
 
   const handleFileSelect = (file: File) => {
@@ -97,7 +97,9 @@ function UploadComponent() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Select your streaming history</CardTitle>
+          <CardTitle className="text-xl">
+            Select your streaming history
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <input
@@ -106,6 +108,7 @@ function UploadComponent() {
             onChange={handleFileInputChange}
             className="hidden"
             id="file-input"
+            data-testid="file-input"
           />
 
           <div
@@ -117,7 +120,9 @@ function UploadComponent() {
           >
             {selectedFile ? (
               <div className="space-y-3">
-                <div className="text-primary font-medium text-lg">{selectedFile.name}</div>
+                <div className="text-primary font-medium text-lg">
+                  {selectedFile.name}
+                </div>
                 <div className="text-muted-foreground">
                   {(selectedFile.size / 1024 / 1024).toFixed(1)} MB
                 </div>
@@ -127,7 +132,9 @@ function UploadComponent() {
                 <div className="text-muted-foreground text-lg">
                   Drop your Spotify data ZIP file here
                 </div>
-                <div className="text-muted-foreground/70 text-sm">or click to browse files</div>
+                <div className="text-muted-foreground/70 text-sm">
+                  or click to browse files
+                </div>
               </div>
             )}
           </div>
@@ -138,7 +145,9 @@ function UploadComponent() {
               disabled={uploadStatus === "uploading"}
               onClick={() => handleUpload(selectedFile!)}
             >
-              {uploadStatus === "uploading" ? "Uploading..." : "Upload & Analyze"}
+              {uploadStatus === "uploading"
+                ? "Uploading..."
+                : "Upload & Analyze"}
             </button>
           )}
 
@@ -148,8 +157,8 @@ function UploadComponent() {
                 uploadStatus === "success"
                   ? "text-primary border-primary/20 bg-primary/5"
                   : uploadStatus === "error"
-                    ? "text-destructive border-destructive/20 bg-destructive/5"
-                    : "text-muted-foreground border-border"
+                  ? "text-destructive border-destructive/20 bg-destructive/5"
+                  : "text-muted-foreground border-border"
               }`}
             >
               {uploadResult}

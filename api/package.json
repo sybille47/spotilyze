@@ -1,0 +1,30 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.2",
+    "@types/mongodb": "^4.0.7",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.2",
+    "hono": "^4.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "jszip": "^3.10.1",
+    "mongodb": "^6.20.0",
+    "shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/jszip": "^3.4.1",
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1"
+  }
+}
