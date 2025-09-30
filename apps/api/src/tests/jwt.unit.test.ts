@@ -1,0 +1,18 @@
+import { describe, expect, it } from 'vitest';
+import jwt from 'jsonwebtoken';
+
+describe('Unit: JWT basic behavior (sign/verify)', () => {
+  const SECRET = 'test-secret-123456789012345678901234';
+
+  it('signs and verifies payload', () => {
+    const token = jwt.sign({ userId: 'u1', username: 'alice' }, SECRET, { expiresIn: '1h' });
+    const decoded = jwt.verify(token, SECRET) as any;
+    expect(decoded.userId).toBe('u1');
+    expect(decoded.username).toBe('alice');
+  });
+
+  it('fails to verify with wrong secret', () => {
+    const token = jwt.sign({ userId: 'u1' }, SECRET);
+    expect(() => jwt.verify(token, 'wrong-secret')).toThrow();
+  });
+});
