@@ -1,0 +1,42 @@
+import { describe, it, expect } from "vitest";
+import { SpotifyDataArraySchema } from "shared";
+
+describe("Unit: SpotifyDataArraySchema", () => {
+  it("accepts a valid streaming record array", () => {
+    const good = [{
+      ts: "2024-01-02T12:00:00Z",
+      ms_played: 180000,
+      master_metadata_track_name: "Song A",
+      master_metadata_album_artist_name: "Artist A",
+      master_metadata_album_album_name: "Album A",
+      spotify_track_uri: "spotify:track:abc",
+
+      platform: "",
+      conn_country: "",
+      ip_addr: "",
+      episode_name: "",
+      episode_show_name: "",
+      spotify_episode_uri: "",
+      audiobook_title: "",
+      audiobook_uri: "",
+      audiobook_chapter_uri: "",
+      audiobook_chapter_title: "",
+      reason_start: "",
+      reason_end: "",
+      shuffle: false,
+      skipped: false,
+      offline: false,
+      offline_timestamp: 0,
+      incognito_mode: false,
+    }];
+
+    const parsed = SpotifyDataArraySchema.parse(good);
+    expect(Array.isArray(parsed)).toBe(true);
+  });
+
+  it("rejects invalid structure", () => {
+    const bad = [{ foo: "bar" }];
+    const result = SpotifyDataArraySchema.safeParse(bad);
+    expect(result.success).toBe(false);
+  });
+});
